@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.0.4-csl.0](https://github.com/cloudscapelabs/code-push-server/compare/v2.0.3...v2.0.4-csl.0) (2022-03-22)
+
+
+### Features
+
+* **app:** add i18n support ([57a6e98](https://github.com/cloudscapelabs/code-push-server/commit/57a6e98df10bfcfc14badd3b4a399815e3c4349a))
+
 ### [2.0.3](https://github.com/shm-open/code-push-server/compare/v2.0.2...v2.0.3) (2022-03-09)
 
 
