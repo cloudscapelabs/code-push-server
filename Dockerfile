@@ -1,6 +1,7 @@
 FROM node:lts-alpine
 
 ARG NPM_TOKEN
+ARG VERSION
 
 COPY .npmrc-parameter /root/.npmrc
 
