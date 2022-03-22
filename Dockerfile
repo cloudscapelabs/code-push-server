@@ -1,6 +1,10 @@
 FROM node:lts-alpine
 
-RUN npm install -g @shm-open/code-push-server@${VERSION} pm2@latest --no-optional
+ARG NPM_TOKEN
+
+COPY .npmrc-parameter /root/.npmrc
+
+RUN npm install -g @cloudscapelabs/code-push-server@${VERSION} pm2@latest --no-optional
 
 RUN mkdir /data/
 
