@@ -1,5 +1,8 @@
 ROOT := $(shell pwd)
-VERSION := $(shell node -p "require('./package.json').version")
+export VERSION := $(shell node -p "require('./package.json').version")
+
+export NPM_TOKEN := $(shell node -p "require('./docker-build.json').npmToken")
+REPOSITORY := $(shell node -p "require('./docker-build.json').repository")
 
 .PHONY: test
 test:
@@ -17,7 +20,5 @@ coverage:
 release-docker:
 	@echo "\nBuilding docker image..."
 	docker pull node:lts-alpine
-	docker build -t shmopen/code-push-server:latest --no-cache .
-	docker tag shmopen/code-push-server:latest shmopen/code-push-server:${VERSION}
-	docker push shmopen/code-push-server:${VERSION}
-	docker push shmopen/code-push-server:latest
+	docker build --build-arg NPM_TOKEN --build-arg VERSION -t ${REPOSITORY}:${VERSION} --no-cache .
+	docker push ${REPOSITORY}:${VERSION}
