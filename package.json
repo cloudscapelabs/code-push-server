@@ -1,11 +1,14 @@
 {
-  "name": "@shm-open/code-push-server",
+  "name": "@cloudscapelabs/code-push-server",
   "description": "CodePush service is hotupdate services which adapter react-native-code-push and cordova-plugin-code-push",
   "version": "2.0.3",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/shm-open/code-push-server.git"
+    "url": "https://github.com/cloudscapelabs/code-push-server.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
   },
   "keywords": [
     "code-push",
@@ -32,7 +35,7 @@
     "init": "node ./bin/db.js init",
     "upgrade": "node ./bin/db.js upgrade",
     "build": "rm -rf bin && tsc",
-    "release": "npm run build && npm test && standard-version && git push --follow-tags origin master && npm publish",
+    "release": "npm run build && npm test && standard-version --prerelease csl && git push --follow-tags origin master && npm publish",
     "release-docker": "make release-docker",
     "test": "make test",
     "coverage": "make coverage"
