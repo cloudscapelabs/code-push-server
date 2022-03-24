@@ -1,3 +1,4 @@
+import * as Sentry from "@sentry/node"
 import fs from 'fs';
 import path from 'path';
 import bodyParser from 'body-parser';
@@ -16,8 +17,15 @@ import { authRouter } from './routes/auth';
 import { indexRouter } from './routes/index';
 import { indexV1Router } from './routes/indexV1';
 import { usersRouter } from './routes/users';
+import { sentryEnabled, setupSentry } from "./sentry"
+
+setupSentry()
 
 export const app = express();
+
+if (sentryEnabled()) {
+    app.use(Sentry.Handlers.requestHandler())
+}
 
 app.use(
     helmet({
@@ -89,15 +97,18 @@ app.use('/account', accountRouter);
 app.use('/auth', authRouter);
 app.use('/users', usersRouter);
 
+
 // 404 handler
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-app.use((req, res, next) => {
-    throw new NotFound(`${req.method} ${req.url} not found`);
+app.use((req, res) => {
+    res.status(404).send(`${req.method} ${req.url} not found`)
 });
 
+if (sentryEnabled()) {
+    app.use(Sentry.Handlers.errorHandler());
+}
+
 // error handler
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-app.use((err: Error, req: Req, res: Res, next: NextFunction) => {
+app.use((err: Error, req: Req, res: Res) => {
     const thisLogger = req.logger || logger;
     if (err instanceof AppError) {
         res.status(err.status).send(err.message);

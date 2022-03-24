@@ -26,6 +26,8 @@ export const config = {
         level: process.env.LOG_LEVEL || 'info',
         // text, json
         format: process.env.LOG_FORMAT || 'text',
+        sentryDsn: process.env.SENTRY_DSN || null,
+        sentryEnv: process.env.SENTRY_ENV || null,
     },
     // Config for database, only support mysql.
     db: {
