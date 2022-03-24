@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.1.1-csl.1](https://github.com/cloudscapelabs/code-push-server/compare/v2.1.1...v2.1.1-csl.1) (2022-03-24)
+
+
+### Bug Fixes
+
+* change password success prompts localized message ([21c987a](https://github.com/cloudscapelabs/code-push-server/commit/21c987ad1e9e72a888965f42cb808294c4701477))
+* refactor views, improve/simplify the auth workflows ([f1e3e2a](https://github.com/cloudscapelabs/code-push-server/commit/f1e3e2ac2b6fbca003d56d8217793b7d346e04b6))
+
 ### [2.1.1](https://github.com/shm-open/code-push-server/compare/v2.1.0...v2.1.1) (2022-03-23)
 
 
