@@ -1,0 +1,21 @@
+version: '3.7'
+services:
+  mysql-dev:
+    image: mysql:latest
+    ports:
+      - '3306:3306'
+    volumes:
+      - data-mysql-dev:/var/lib/mysql
+      - ./sql/codepush-all-docker.sql:/docker-entrypoint-initdb.d/codepush-all.sql
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'On'
+      MYSQL_ROOT_PASSWORD: 'password'
+  redis-dev:
+    image: redis:latest
+    ports:
+      - '6379:6379'
+    volumes:
+      - data-redis-dev:/data
+volumes:
+  data-mysql-dev:
+  data-redis-dev:
