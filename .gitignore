@@ -13,7 +13,9 @@ bin/
 # deps
 node_modules/
 
-
 # vs code
 .history
 .idea
+
+# docker build info
+docker-build.json
