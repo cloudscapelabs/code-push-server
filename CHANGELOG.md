@@ -2,6 +2,50 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.1.6](https://github.com/shm-open/code-push-server/compare/v2.1.5...v2.1.6) (2022-07-17)
+
+
+### Bug Fixes
+
+* **deps:** update dependency aws-sdk to v2.1176.0 ([eb3c14a](https://github.com/shm-open/code-push-server/commit/eb3c14abcc8b673f485088f1b8684504a34b60ac))
+* **deps:** update dependency cos-nodejs-sdk-v5 to v2.11.12 ([fa00c74](https://github.com/shm-open/code-push-server/commit/fa00c74cf951278ec547c00d0ed713b40a2710d3))
+* **deps:** update dependency express to v4.18.1 ([2adad28](https://github.com/shm-open/code-push-server/commit/2adad280d937fd9176cdc4a5f20547f9ecd88288))
+* **deps:** update dependency helmet to v5.1.0 ([aefde36](https://github.com/shm-open/code-push-server/commit/aefde366d6eb98ea401214709051ebab5b6f9ecc))
+* **deps:** update dependency i18n to v0.15.0 ([7cc216c](https://github.com/shm-open/code-push-server/commit/7cc216ce5eb88ab4ff299671547f5c39c1ea146a))
+* **deps:** update dependency nodemailer to v6.7.7 ([85ad522](https://github.com/shm-open/code-push-server/commit/85ad522d5b4cb31f57cf2b9bca35d9d64d35e45d))
+* **deps:** update dependency qiniu to v7.7.0 ([732a4ed](https://github.com/shm-open/code-push-server/commit/732a4ed6e82d2047b6df91ff004fc482aaffab6b))
+* **deps:** update dependency redis to v4.2.0 ([5a744c6](https://github.com/shm-open/code-push-server/commit/5a744c6ea111e74a834307131bf0a8a5dbecb137))
+* **deps:** update dependency sequelize to v6.21.3 ([7462594](https://github.com/shm-open/code-push-server/commit/746259467957a79b77d1ea1da69f9af5915b56b1))
+* **deps:** update dependency yargs to v17.5.1 ([fd9f58e](https://github.com/shm-open/code-push-server/commit/fd9f58e580e516cb188b4bea8da3eeb837bacae6))
+
+### [2.1.5](https://github.com/shm-open/code-push-server/compare/v2.1.4...v2.1.5) (2022-04-26)
+
+### [2.1.4](https://github.com/shm-open/code-push-server/compare/v2.1.3...v2.1.4) (2022-04-26)
+
+
+### Bug Fixes
+
+* **deps:** update dependency aws-sdk to v2.1121.0 ([f59e9ae](https://github.com/shm-open/code-push-server/commit/f59e9ae1d2605b2f5938fc6e8dde6c8e3a20711f))
+* **deps:** update dependency cos-nodejs-sdk-v5 to v2.11.7 ([d74aa2a](https://github.com/shm-open/code-push-server/commit/d74aa2a43670971e8eac227412931ddc9f39a91a))
+* **deps:** update dependency express to v4.18.0 ([9b2fee3](https://github.com/shm-open/code-push-server/commit/9b2fee3cf87a79ad7d26bf7e342d70efb21af273))
+* **deps:** update dependency fs-extra to v10.1.0 ([2699a4a](https://github.com/shm-open/code-push-server/commit/2699a4a6f2cf77d917a8cce5a0eac348149efa1a))
+* **deps:** update dependency moment to v2.29.3 ([b9af976](https://github.com/shm-open/code-push-server/commit/b9af976fcd701aa3d1645c8b82f50932c4fb414c))
+* **deps:** update dependency qiniu to v7.5.0 ([f9068c2](https://github.com/shm-open/code-push-server/commit/f9068c2dcc4e83aec9820b05b21262fe859f88d6))
+* **deps:** update dependency sequelize to v6.19.0 ([d447d42](https://github.com/shm-open/code-push-server/commit/d447d4258ec22ac367041a58599a2d803cf4d090))
+* **deps:** update dependency yargs to v17.4.1 ([5431b62](https://github.com/shm-open/code-push-server/commit/5431b624a2b7b0d72a1dd79365c690c536b2b708))
+
+### [2.1.3](https://github.com/shm-open/code-push-server/compare/v2.1.2...v2.1.3) (2022-04-07)
+
+
+### Bug Fixes
+
+* **deps:** update dependency aws-sdk to v2.1109.0 ([1d3cab0](https://github.com/shm-open/code-push-server/commit/1d3cab0c310ca39398e65d334970add1e9119529))
+* **deps:** update dependency body-parser to v1.20.0 ([ae55396](https://github.com/shm-open/code-push-server/commit/ae553969a3154617a60db8890da7a3467c5cbcd4))
+* **deps:** update dependency moment to v2.29.2 ([a4c875d](https://github.com/shm-open/code-push-server/commit/a4c875d7c0b69f88a82c1cb1ee43e2b354ad97b1))
+* **deps:** update dependency redis to v4.0.6 ([442743f](https://github.com/shm-open/code-push-server/commit/442743f20d642d3a0adc3be0f6abbc707544077f))
+* **deps:** update dependency sequelize to v6.18.0 ([34ef968](https://github.com/shm-open/code-push-server/commit/34ef96860518e9d31769bbed6c43b1501b6bb11b))
+* use latest matching deployment ([fb70185](https://github.com/shm-open/code-push-server/commit/fb701856c688a1a62a6f52b3b3de58b1179b954f)), closes [#162](https://github.com/shm-open/code-push-server/issues/162)
+
 ### [2.1.2](https://github.com/shm-open/code-push-server/compare/v2.1.1...v2.1.2) (2022-03-25)
 
 
