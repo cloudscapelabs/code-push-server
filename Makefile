@@ -3,6 +3,7 @@ export VERSION := $(shell node -p "require('./package.json').version")
 
 export NPM_TOKEN := $(shell node -p "require('./docker-build.json').npmToken")
 REPOSITORY := $(shell node -p "require('./docker-build.json').repository")
+REPOSITORY_PROD := $(shell node -p "require('./docker-build.json').repositoryProd")
 
 .PHONY: test
 test:
@@ -20,5 +21,6 @@ coverage:
 release-docker:
 	@echo "\nBuilding docker image..."
 	docker pull node:lts-alpine
-	docker build --build-arg NPM_TOKEN --build-arg VERSION -t ${REPOSITORY}:${VERSION} --no-cache .
+	docker build --platform="linux/amd64" --build-arg NPM_TOKEN --build-arg VERSION -t ${REPOSITORY}:${VERSION} -t ${REPOSITORY_PROD}:${VERSION} --no-cache .
 	docker push ${REPOSITORY}:${VERSION}
+	docker push ${REPOSITORY_PROD}:${VERSION}
