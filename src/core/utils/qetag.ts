@@ -6,7 +6,7 @@ import { Logger } from 'kv-logger';
 import { AppError } from '../app-error';
 
 // 计算文件的eTag，参数为buffer或者readableStream或者文件路径
-function getEtag(buffer: string | Stream | Buffer, callback: (etag: string) => void) {
+function getEtag(buffer: string | Stream | Buffer, callback: (etag: string) => void, errorCallback?: (error: Error) => void) {
     // 判断传入的参数是buffer还是stream还是filepath
     let mode = 'buffer';
 
@@ -64,7 +64,9 @@ function getEtag(buffer: string | Stream | Buffer, callback: (etag: string) => v
         }
         case 'stream': {
             const stream = buffer as Readable;
+            let hasErrored = false;
             stream.on('readable', () => {
+                if (hasErrored) return;
                 for (;;) {
                     const chunk = stream.read(blockSize);
                     if (!chunk) {
@@ -75,7 +77,15 @@ function getEtag(buffer: string | Stream | Buffer, callback: (etag: string) => v
                 }
             });
             stream.on('end', () => {
-                callback(calcEtag());
+                if (!hasErrored) {
+                    callback(calcEtag());
+                }
+            });
+            stream.on('error', (error) => {
+                hasErrored = true;
+                if (errorCallback) {
+                    errorCallback(error);
+                }
             });
 
             break;
@@ -100,7 +110,7 @@ export function qetag(buffer: string | Stream | Buffer, logger: Logger): Promise
         }
     }
     logger.debug(`generate file identical`);
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
         getEtag(buffer, (data) => {
             if (typeof buffer === 'string') {
                 logger.debug('identical:', {
@@ -109,6 +119,8 @@ export function qetag(buffer: string | Stream | Buffer, logger: Logger): Promise
                 });
             }
             resolve(data);
+        }, (error) => {
+            reject(new AppError(error.message));
         });
     });
 }

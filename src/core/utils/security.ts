@@ -39,15 +39,21 @@ export function parseToken(token: string) {
 
 function fileSha256(file: string): Promise<string> {
     return new Promise((resolve, reject) => {
-        const rs = fs.createReadStream(file);
-        const hash = crypto.createHash('sha256');
-        rs.on('data', hash.update.bind(hash));
-        rs.on('error', (e) => {
-            reject(e);
-        });
-        rs.on('end', () => {
-            resolve(hash.digest('hex'));
-        });
+        try {
+            const rs = fs.createReadStream(file);
+            const hash = crypto.createHash('sha256');
+            rs.on('data', hash.update.bind(hash));
+            rs.on('error', (e) => {
+                logger.error(`fileSha256 error reading ${file}: ${e.message}`);
+                reject(e);
+            });
+            rs.on('end', () => {
+                resolve(hash.digest('hex'));
+            });
+        } catch (error) {
+            logger.error(`fileSha256 exception for ${file}: ${error.message}`);
+            reject(error);
+        }
     });
 }
 
@@ -113,16 +119,31 @@ export function packageHashSync(jsonData: Record<string, string>) {
 }
 
 function sha256AllFiles(files: string[]): Promise<Record<string, string>> {
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
         const results: Record<string, string> = {};
         const { length } = files;
         let count = 0;
+        let hasError = false;
+
+        // Handle empty files case
+        if (length === 0) {
+            resolve(results);
+            return;
+        }
+
         files.forEach((file) => {
             fileSha256(file).then((hash) => {
-                results[file] = hash;
-                count += 1;
-                if (count === length) {
-                    resolve(results);
+                if (!hasError) {
+                    results[file] = hash;
+                    count += 1;
+                    if (count === length) {
+                        resolve(results);
+                    }
+                }
+            }).catch((error) => {
+                if (!hasError) {
+                    hasError = true;
+                    reject(new AppError(`Failed to hash file ${file}: ${error.message}`));
                 }
             });
         });
@@ -131,6 +152,7 @@ function sha256AllFiles(files: string[]): Promise<Record<string, string>> {
 
 export function uploadPackageType(directoryPath: string) {
     return new Promise<number>((resolve, reject) => {
+        logger.debug(`uploadPackageType checking directory: ${directoryPath}`);
         recursive(directoryPath, (err, files) => {
             if (err) {
                 logger.error(new AppError(err.message));
@@ -139,6 +161,7 @@ export function uploadPackageType(directoryPath: string) {
                 logger.debug(`uploadPackageType empty files`);
                 reject(new AppError('empty files'));
             } else {
+                logger.debug(`uploadPackageType found ${files.length} files`);
                 const aregex = /android\.bundle/;
                 const aregexIOS = /main\.jsbundle/;
                 let packageType = 0;
@@ -179,6 +202,7 @@ export function calcAllFileSha256(directoryPath: string): Promise<Record<string,
                     logger.debug(`calcAllFileSha256 empty files in directory`, { directoryPath });
                     reject(new AppError('empty files'));
                 } else {
+                    logger.debug(`calcAllFileSha256 calculating SHA256 for ${files.length} files`);
                     sha256AllFiles(files).then((results) => {
                         const data: Record<string, string> = {};
                         _.forIn(results, (value, key) => {
@@ -188,6 +212,9 @@ export function calcAllFileSha256(directoryPath: string): Promise<Record<string,
                         });
                         logger.debug(`calcAllFileSha256 files:`, data);
                         resolve(data);
+                    }).catch((error) => {
+                        logger.error(`calcAllFileSha256 error: ${error.message}`);
+                        reject(error);
                     });
                 }
             }
